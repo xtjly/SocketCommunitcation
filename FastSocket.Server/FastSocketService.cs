@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FastSocket.Server.Options
+namespace FastSocket.Server
 {
-    public class SocketFactoryOption
+    public class FastSocketService : IFastSocketService
     {
     }
 }

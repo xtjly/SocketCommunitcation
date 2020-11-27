@@ -9,8 +9,10 @@ namespace FastSocket.Test
     {
         static void Main(string[] args)
         {
-            IFastSocket fastSocket = SocketFactory.CreateSocketBuild();
-
+            IFastSocketBuild fastSocketBuild = SocketFactory.CreateSocketBuild();
+            fastSocketBuild.ConfigFastSocketService();
+            IFastSocket fastSocket = fastSocketBuild.Build();
+            fastSocket.Run();
         }
     }
 }
