@@ -1,4 +1,5 @@
-﻿using FastSocket.Server.Comman;
+﻿using FastSocket.Server.Build;
+using FastSocket.Server.Comman;
 using FastSocket.Server.Options;
 using System;
 using System.IO;
@@ -18,7 +19,8 @@ namespace FastSocket.Server.Factory
                     Ip = "127.0.0.1",
                     Port = 6188,
                     MaxConnections = 10,
-                    MaxTimeOutMillisecond = 5000
+                    MaxTimeOutMillisecond = 5000,
+                    MaxTransPortBodyMB = 2
                 });
             }
             return CreateSocketBuild(option);
@@ -26,17 +28,6 @@ namespace FastSocket.Server.Factory
 
         public static IFastSocketBuild CreateSocketBuild(FastSocketBuildOption options)
         {
-            var result = options.IsConfigSuccess();
-            var configResult = new
-            {
-                IsSuccess = result.Item1,
-                ErrorException = result.Item2
-            };
-            if (!configResult.IsSuccess)
-            {
-                Console.WriteLine($"配置错误({configResult.ErrorException.Message})({configResult.ErrorException.StackTrace})");
-                throw configResult.ErrorException;
-            }
             IFastSocketBuild fastSocketBuild = new FastSocketBuild();
             fastSocketBuild.ConfigureDefaultOptions(options);
             return fastSocketBuild;

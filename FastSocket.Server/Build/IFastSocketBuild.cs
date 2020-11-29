@@ -1,13 +1,12 @@
 ﻿using FastSocket.Server.Options;
 using System;
 
-namespace FastSocket.Server
+namespace FastSocket.Server.Build
 {
     public interface IFastSocketBuild
     {
         void ConfigureDefaultOptions(FastSocketBuildOption options);
 
-        void ConfigFastSocketService();
         void ConfigFastSocketService(Action<IFastSocketService> p);
 
         IFastSocket Build();

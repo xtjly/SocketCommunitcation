@@ -1,4 +1,5 @@
-﻿using FastSocket.Server.Options;
+﻿using FastSocket.Server.Connection;
+using FastSocket.Server.Options;
 
 namespace FastSocket.Server
 {
@@ -8,5 +9,8 @@ namespace FastSocket.Server
         void ConfigService(IFastSocketService fastSocketService);
 
         void Run();
+        void Close();
+        void CloseOneConnection(FastSocketConnection fastSocketConnection);
+        void CloseOneConnectionByConnectionID(int connectionID);
     }
 }

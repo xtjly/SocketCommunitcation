@@ -6,5 +6,6 @@
         public int Port { get; set; }
         public int MaxConnections { get; set; }
         public int MaxTimeOutMillisecond { get; set; }
+        public int MaxTransPortBodyMB { get; set; }
     }
 }

@@ -12,7 +12,8 @@ namespace FastSocket.Server.Options
                    || option.Port <= 0
                    || option.MaxConnections <= 0
                    || option.MaxTimeOutMillisecond <= 0
-                   || !Regex.IsMatch(option.Ip, @"(^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$)|(^localhost$)"))
+                   || !Regex.IsMatch(option.Ip, @"(^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$)|(^localhost$)")
+                   || option.MaxTransPortBodyMB <= 0)
             {
                 return (false, new Exception("fastsocket.json文件配置错误，或FastSocketBuildOption配置错误"));
             }

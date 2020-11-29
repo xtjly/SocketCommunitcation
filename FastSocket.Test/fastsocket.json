@@ -1,6 +1,7 @@
 {
   "Ip": "127.0.0.1",
   "Port": 6188,
-  "MaxConnections": 10,
-  "MaxTimeOutMillisecond": 5000
+  "MaxConnections": 3,
+  "MaxTimeOutMillisecond": 5000,
+  "MaxTransPortBodyMB": 2
 }
