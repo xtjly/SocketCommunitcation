@@ -1,6 +1,8 @@
 ﻿using FastSocket.Server.Options;
 using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Sockets;
 using System.Text;
 
 namespace FastSocket.Server
@@ -11,6 +13,7 @@ namespace FastSocket.Server
         private int Port { get; set; }
         private int MaxConnections { get; set; }
         private int MaxTimeOutMillisecond { get; set; }
+        private EnumSocketProtocolType SocketProtocolType { get; set; }
 
         public void ConfigOptions(FastSocketBuildOption option)
         {
@@ -18,6 +21,9 @@ namespace FastSocket.Server
             this.Port = option.Port;
             this.MaxConnections = option.MaxConnections;
             this.MaxTimeOutMillisecond = option.MaxTimeOutMillisecond;
+
+            //
+            this.SocketProtocolType = EnumSocketProtocolType.tcp;
         }
 
         public void ConfigService(IFastSocketService fastSocketService)
@@ -25,14 +31,16 @@ namespace FastSocket.Server
             //throw new NotImplementedException();
         }
 
-        public void PrintConfigInfo()
+        private void PrintConfigInfo()
         {
-            Console.WriteLine($"FastSocket：Ip({this.Ip})，Port({this.Port})，MaxConnections({this.MaxConnections})，MaxTimeOutMillisecond({this.MaxTimeOutMillisecond})");
+            Console.WriteLine($"FastSocket：Ip({this.Ip})，Port({this.Port})，MaxConnections({this.MaxConnections})，MaxTimeOutMillisecond({this.MaxTimeOutMillisecond})，SocketProtocolType({this.SocketProtocolType})");
         }
 
         public void Run()
         {
             this.PrintConfigInfo();
+            IPEndPoint iPEndPoint = new IPEndPoint(IPAddress.Parse(this.Ip), this.Port);
+            Socket socket = new Socket(iPEndPoint.AddressFamily, SocketType.Stream, (ProtocolType)((int)SocketProtocolType));
 
         }
     }
