@@ -9,4 +9,10 @@
     <ProjectReference Include="..\FastSocket.Server\FastSocket.Server.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="fastsocket.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

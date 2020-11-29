@@ -3,3 +3,17 @@
 ################################################################################
 
 /.vs/SocketCommunication/DesignTimeBuild/.dtbcache.v2
+*.pdb
+*.exe
+*.dll
+/FastSocket.Test/bin/Debug/netcoreapp3.1/FastSocket.Test.deps.json
+/FastSocket.Test/bin/Debug/netcoreapp3.1/FastSocket.Test.runtimeconfig.dev.json
+/FastSocket.Test/bin/Debug/netcoreapp3.1/FastSocket.Test.runtimeconfig.json
+/FastSocket.Test/bin/Debug/netcoreapp3.1/fastsocket.json
+/FastSocket.Test/obj/Debug/netcoreapp3.1/FastSocket.Test.csproj.CopyComplete
+/FastSocket.Test/obj/Debug/netcoreapp3.1/FastSocket.Test.csproj.CoreCompileInputs.cache
+/FastSocket.Test/obj/Debug/netcoreapp3.1/FastSocket.Test.csproj.FileListAbsolute.txt
+/FastSocket.Test/obj/Debug/netcoreapp3.1/FastSocket.Test.genruntimeconfig.cache
+/FastSocket.Server/bin/Debug/netstandard2.0/FastSocket.Server.deps.json
+/FastSocket.Server/obj/Debug/netstandard2.0/FastSocket.Server.csproj.CoreCompileInputs.cache
+/FastSocket.Server/obj/Debug/netstandard2.0/FastSocket.Server.csproj.FileListAbsolute.txt

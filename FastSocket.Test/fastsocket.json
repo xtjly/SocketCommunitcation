@@ -1,0 +1,6 @@
+{
+  "Ip": "192.168.0.1",
+  "Port": 6188,
+  "MaxConnections": 10,
+  "MaxTimeOutMillisecond": 5000
+}

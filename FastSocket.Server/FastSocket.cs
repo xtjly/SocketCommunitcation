@@ -7,19 +7,33 @@ namespace FastSocket.Server
 {
     public class FastSocket : IFastSocket
     {
-        public void ConfigOptions(FastSocketBuildOption fastSocketBuildOption)
+        private string Ip { get; set; }
+        private int Port { get; set; }
+        private int MaxConnections { get; set; }
+        private int MaxTimeOutMillisecond { get; set; }
+
+        public void ConfigOptions(FastSocketBuildOption option)
         {
-            throw new NotImplementedException();
+            this.Ip = option.Ip;
+            this.Port = option.Port;
+            this.MaxConnections = option.MaxConnections;
+            this.MaxTimeOutMillisecond = option.MaxTimeOutMillisecond;
         }
 
         public void ConfigService(IFastSocketService fastSocketService)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+        }
+
+        public void PrintConfigInfo()
+        {
+            Console.WriteLine($"FastSocket：Ip({this.Ip})，Port({this.Port})，MaxConnections({this.MaxConnections})，MaxTimeOutMillisecond({this.MaxTimeOutMillisecond})");
         }
 
         public void Run()
         {
-            throw new NotImplementedException();
+            this.PrintConfigInfo();
+
         }
     }
 }
