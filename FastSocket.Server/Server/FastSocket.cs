@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Timers;
 
 namespace FastSocket
@@ -25,7 +26,6 @@ namespace FastSocket
         private bool IsListen = false;
         private int AutoGrowthConnectionId = 0;
         public readonly List<FastSocketConnection> FastSocketConnections = new List<FastSocketConnection>();
-        private readonly Timer timer;
 
         public FastSocket(FastSocketBuildOption option, IFastSocketService fastSocketService)
         {
@@ -38,8 +38,6 @@ namespace FastSocket
             this.Encoding = Encoding.UTF8;
             this.SocketProtocolType = EnumSocketProtocolType.tcp;
             this.FastSocketService = fastSocketService;
-            this.timer = new Timer(2000);
-            timer.Elapsed += new ElapsedEventHandler(OnConnectionClose);
         }
 
         //
@@ -52,14 +50,20 @@ namespace FastSocket
             {
                 this.socket.BeginAccept(asyncResult =>
                 {
-                    Socket newConnectionSocket = this.socket?.EndAccept(asyncResult);
-                    if (this.IsListen) { this.HandleListenAsync(); }
-                    else { return; }
-                    FastSocketConnection fastSocketConnection = new FastSocketConnection(newConnectionSocket, (int)asyncResult.AsyncState, this);
-                    this.FastSocketService.OnConnectionConnected(this, fastSocketConnection);
-                    fastSocketConnection.Start();
-                    this.FastSocketConnections.Add(fastSocketConnection);
-
+                    try
+                    {
+                        Socket newConnectionSocket = this.socket?.EndAccept(asyncResult);
+                        if (this.IsListen) { this.HandleListenAsync(); }
+                        else { return; }
+                        FastSocketConnection fastSocketConnection = new FastSocketConnection(newConnectionSocket, (int)asyncResult.AsyncState, this);
+                        this.FastSocketService.OnConnectionConnected(this, fastSocketConnection);
+                        fastSocketConnection.Start();
+                        this.FastSocketConnections.Add(fastSocketConnection);
+                    }
+                    catch (Exception ex)
+                    {
+                        this.FastSocketService.OnServiceException(this, ex);
+                    }
                 }, this.AutoGrowthConnectionId++);
             }
         }
@@ -71,6 +75,8 @@ namespace FastSocket
                 this.PrintConfigInfo();
                 IPEndPoint iPEndPoint = new IPEndPoint(IPAddress.Parse(this.Ip), this.Port);
                 this.socket = new Socket(iPEndPoint.AddressFamily, SocketType.Stream, (ProtocolType)((int)this.SocketProtocolType));
+                this.socket.SendTimeout = this.MaxTimeOutMillisecond;
+                this.socket.ReceiveTimeout = this.MaxTimeOutMillisecond;
                 this.socket.Bind(iPEndPoint);
                 this.socket.Listen(this.MaxConnections);
                 this.IsListen = true;
@@ -79,6 +85,7 @@ namespace FastSocket
                 HandleListenAsync();
                 while (!"exit".Equals(Console.ReadLine().Trim())) { }
                 this.Stop();
+                Thread.Sleep(3000);
             }
             catch (Exception ex)
             {
@@ -88,34 +95,50 @@ namespace FastSocket
 
         private void HandleConnectionClosedAsync()
         {
-            //timer.Start();
+            ThreadPool.QueueUserWorkItem(OnConnectionClose);
         }
 
-        private void OnConnectionClose(object sender, ElapsedEventArgs e)
+        private void OnConnectionClose(object state)
         {
-            try
+            while (true)
             {
-                if (this.FastSocketConnections.Count > 0 && this.IsListen)
+                try
                 {
-                    for (int i = this.FastSocketConnections.Count - 1; i >= 0; i--)
+                    if (this.FastSocketConnections.Count > 0 && this.IsListen)
                     {
-                        if (this.IsListen)
+                        for (int i = this.FastSocketConnections.Count - 1; i >= 0; i--)
                         {
-                            if (this.FastSocketConnections[i].Poll(this.MaxTimeOutMillisecond, SelectMode.SelectRead))
+                            if (this.IsListen)
                             {
-                                this.FastSocketConnections[i].Close();
-                                this.FastSocketConnections.RemoveAt(i);
-                                i++;
-                                this.FastSocketService.OnConnectionCloseed(this, this.FastSocketConnections[i]);
-                                continue;
+                                if (this.FastSocketConnections[i].IsEnable)
+                                {
+                                    if (!this.FastSocketConnections[i].IsConnected())
+                                    {
+                                        this.FastSocketConnections[i].Close();
+                                        this.FastSocketConnections[i].CloseConnectionSocketWhenNoEnable();
+                                        FastSocketConnection theConnection = this.FastSocketConnections[i];
+                                        this.FastSocketConnections.RemoveAt(i--);
+                                        this.FastSocketService.OnConnectionCloseed(this, theConnection);
+                                        continue;
+                                    }
+                                }
+                                else
+                                {
+                                    this.FastSocketConnections[i].CloseConnectionSocketWhenNoEnable();
+                                    FastSocketConnection theConnection = this.FastSocketConnections[i];
+                                    this.FastSocketConnections.RemoveAt(i--);
+                                    this.FastSocketService.OnConnectionCloseed(this, theConnection);
+                                    continue;
+                                }
                             }
                         }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                this.FastSocketService.OnServiceException(this, ex);
+                catch (Exception ex)
+                {
+                    this.FastSocketService.OnServiceException(this, ex);
+                }
+                Thread.Sleep(100);
             }
         }
 
@@ -125,7 +148,6 @@ namespace FastSocket
             {
 
                 this.IsListen = false;
-                this.timer.Stop();
                 this.socket?.Close();
                 this.FastSocketConnections.Clear();
                 this.FastSocketService.OnServiceStoped(this);

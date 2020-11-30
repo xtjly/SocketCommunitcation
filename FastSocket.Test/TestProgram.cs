@@ -39,7 +39,7 @@ namespace FastSocket.Test
                     Console.WriteLine($"Socket服务，ConnectionId({connection?.ConnectionID})，关闭链接");
                 }).AddOnServiceException((serverSocket, exception) =>
                 {
-                    Console.WriteLine($"Socket服务异常，ExceptionMsg({exception.Message})，ExceptionStackTrace({exception.StackTrace})");
+                    Console.WriteLine($"Socket服务异常，ExceptionMsg({exception.GetType().Name}:{exception.Message})，ExceptionStackTrace({exception.StackTrace})");
                 }).AddOnServiceStarted((serverSocket) =>
                 {
                     Console.WriteLine("Socket服务启动");
