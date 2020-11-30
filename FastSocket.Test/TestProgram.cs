@@ -29,13 +29,14 @@ namespace FastSocket.Test
                     Console.WriteLine($"Socket服务，ConnectionId({connection.ConnectionID})，接入链接");
                 }).AddOnReceiveMsg((serverSocket, connection, receiveBytes) =>
                 {
-                    Console.WriteLine($"Socket服务，ConnectionId({connection.ConnectionID})，从客户端接收到消息：({System.Text.Encoding.UTF8.GetString(receiveBytes)})");
+                    Console.WriteLine($"Socket服务，ConnectionId({connection?.ConnectionID})，从客户端接收到消息：({serverSocket.Encoding.GetString(receiveBytes)})");
+                    connection.Send($"ConnectionId({connection?.ConnectionID})服务端返回的数据");
                 }).AddOnSendMsg((serverSocket, connection, sendBytes) =>
                 {
-                    Console.WriteLine($"Socket服务，ConnectionId({connection.ConnectionID})，发送消息至客户端：({System.Text.Encoding.UTF8.GetString(sendBytes)})");
+                    Console.WriteLine($"Socket服务，ConnectionId({connection?.ConnectionID})，发送消息至客户端：({serverSocket.Encoding.GetString(sendBytes)})");
                 }).AddOnConnectionCloseed((serverSocket, connection) =>
                 {
-                    Console.WriteLine($"Socket服务，ConnectionId({connection.ConnectionID})，关闭链接");
+                    Console.WriteLine($"Socket服务，ConnectionId({connection?.ConnectionID})，关闭链接");
                 }).AddOnServiceException((serverSocket, exception) =>
                 {
                     Console.WriteLine($"Socket服务异常，ExceptionMsg({exception.Message})，ExceptionStackTrace({exception.StackTrace})");

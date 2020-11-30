@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 
 namespace FastSocket.TestClient
 {
@@ -9,22 +10,22 @@ namespace FastSocket.TestClient
         static void Main(string[] args)
         {
             IPEndPoint iPEndPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 6188);
-            Socket socket = new Socket(iPEndPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-            StartConnect(socket, iPEndPoint);
-            while (true) { };
+            Socket clientSocket = new Socket(iPEndPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+            clientSocket.Connect(iPEndPoint);
+
+            //send message
+            string sendStr = $"111send to server : hello,ni hao";
+            byte[] sendBytes = Encoding.UTF8.GetBytes(sendStr);
+            clientSocket.Send(sendBytes);
+
+            //receive message
+            string recStr = "";
+            byte[] recBytes = new byte[4096];
+            int bytes = clientSocket.Receive(recBytes, recBytes.Length, 0);
+            recStr += Encoding.ASCII.GetString(recBytes, 0, bytes);
+            Console.WriteLine(recStr);
+
+            clientSocket.Close();
         }
-
-        private static void StartConnect(Socket socket, IPEndPoint iPEndPoint)
-        {
-            socket.BeginConnect(iPEndPoint, astncResult =>
-            {
-                socket.EndConnect(astncResult);
-                StartConnect(socket, iPEndPoint);//
-
-                socket.BeginReceive(MsgBuffer, 0, MsgBuffer.Length, 0, new AsyncCallback(ReceiveCallback), null);
-            }, null);
-
-        }
-
     }
 }
