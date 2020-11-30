@@ -27,19 +27,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\86188\\.nuget\\packages\\": {}
+    "C:\\Users\\vsofo\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\86188\\Documents\\新建文件夹\\SocketCommunitcation\\FastSocket.Test\\FastSocket.Test.csproj",
+      "projectUniqueName": "F:\\liuyan\\vs2019project\\精进\\SocketCommunication\\FastSocket.Test\\FastSocket.Test.csproj",
       "projectName": "FastSocket.Test",
-      "projectPath": "C:\\Users\\86188\\Documents\\新建文件夹\\SocketCommunitcation\\FastSocket.Test\\FastSocket.Test.csproj",
-      "packagesPath": "C:\\Users\\86188\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\86188\\Documents\\新建文件夹\\SocketCommunitcation\\FastSocket.Test\\obj\\",
+      "projectPath": "F:\\liuyan\\vs2019project\\精进\\SocketCommunication\\FastSocket.Test\\FastSocket.Test.csproj",
+      "packagesPath": "C:\\Users\\vsofo\\.nuget\\packages\\",
+      "outputPath": "F:\\liuyan\\vs2019project\\精进\\SocketCommunication\\FastSocket.Test\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\86188\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\vsofo\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -53,8 +53,8 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "C:\\Users\\86188\\Documents\\新建文件夹\\SocketCommunitcation\\FastSocket.Server\\FastSocket.Server.csproj": {
-              "projectPath": "C:\\Users\\86188\\Documents\\新建文件夹\\SocketCommunitcation\\FastSocket.Server\\FastSocket.Server.csproj"
+            "F:\\liuyan\\vs2019project\\精进\\SocketCommunication\\FastSocket.Server\\FastSocket.Server.csproj": {
+              "projectPath": "F:\\liuyan\\vs2019project\\精进\\SocketCommunication\\FastSocket.Server\\FastSocket.Server.csproj"
             }
           }
         }

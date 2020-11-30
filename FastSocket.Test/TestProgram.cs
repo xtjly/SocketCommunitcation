@@ -26,16 +26,16 @@ namespace FastSocket.Test
             {
                 fastSocketService.AddOnConnectionConnected((serverSocket, connection) =>
                 {
-                    Console.WriteLine($"Socket服务，ConnectionId({connection.GetConnectionID()})，接入链接");
+                    Console.WriteLine($"Socket服务，ConnectionId({connection.ConnectionID})，接入链接");
                 }).AddOnReceiveMsg((serverSocket, connection, receiveBytes) =>
                 {
-                    Console.WriteLine($"Socket服务，ConnectionId({connection.GetConnectionID()})，从客户端接收到消息：({System.Text.Encoding.UTF8.GetString(receiveBytes)})");
+                    Console.WriteLine($"Socket服务，ConnectionId({connection.ConnectionID})，从客户端接收到消息：({System.Text.Encoding.UTF8.GetString(receiveBytes)})");
                 }).AddOnSendMsg((serverSocket, connection, sendBytes) =>
                 {
-                    Console.WriteLine($"Socket服务，ConnectionId({connection.GetConnectionID()})，发送消息至客户端：({System.Text.Encoding.UTF8.GetString(sendBytes)})");
+                    Console.WriteLine($"Socket服务，ConnectionId({connection.ConnectionID})，发送消息至客户端：({System.Text.Encoding.UTF8.GetString(sendBytes)})");
                 }).AddOnConnectionCloseed((serverSocket, connection) =>
                 {
-                    Console.WriteLine($"Socket服务，ConnectionId({connection.GetConnectionID()})，关闭链接");
+                    Console.WriteLine($"Socket服务，ConnectionId({connection.ConnectionID})，关闭链接");
                 }).AddOnServiceException((serverSocket, exception) =>
                 {
                     Console.WriteLine($"Socket服务异常，ExceptionMsg({exception.Message})，ExceptionStackTrace({exception.StackTrace})");
@@ -49,7 +49,7 @@ namespace FastSocket.Test
             });
             IFastSocket fastSocket = fastSocketBuild.Build();
             fastSocket.Run();                                                   //Socket服务启动
-            //fastSocket.Close();                                               //Socket服务关闭
+            //fastSocket.Stop();                                               //Socket服务关闭
             //fastSocket.CloseOneConnection(new FastSocketConnection());        //关闭某个客户端连接
             //fastSocket.CloseOneConnectionByConnectionID((int)connectionID);   //根据连接ID关闭某个客户端连接
         }

@@ -5,11 +5,8 @@ namespace FastSocket.Server
 {
     public interface IFastSocket
     {
-        void ConfigOptions(FastSocketBuildOption fastSocketBuildOption);
-        void ConfigService(IFastSocketService fastSocketService);
-
         void Run();
-        void Close();
+        void Stop();
         void CloseOneConnection(FastSocketConnection fastSocketConnection);
         void CloseOneConnectionByConnectionID(int connectionID);
     }

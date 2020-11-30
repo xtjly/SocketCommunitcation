@@ -1,32 +1,28 @@
 ﻿using FastSocket.Server.Connection;
 using FastSocket.Server.Options;
-using FastSocket.Server.Build;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 
 namespace FastSocket.Server
 {
     public class FastSocket : IFastSocket
     {
-        private string Ip = string.Empty;
-        private int Port;
-        private int MaxConnections;
-        private int MaxTimeOutMillisecond;
-        private int MaxTransPortBodyMB;
-        private IFastSocketService FastSocketService;
+        public readonly string Ip = string.Empty;
+        public readonly int Port;
+        public readonly int MaxConnections;
+        public readonly int MaxTimeOutMillisecond;
+        public readonly int MaxTransPortBodyMB;
+        private readonly IFastSocketService FastSocketService;
         //
-        private EnumSocketProtocolType SocketProtocolType = EnumSocketProtocolType.tcp;
+        private readonly EnumSocketProtocolType SocketProtocolType = EnumSocketProtocolType.tcp;
         private Socket socket;
         private bool IsListen = false;
         private int AutoGrowthConnectionId = 0;
-        private LinkedList<FastSocketConnection> FastSocketConnections = new LinkedList<FastSocketConnection>();
-        //
-        private void PrintConfigInfo() => Console.WriteLine($"FastSocket：Ip({this.Ip})，Port({this.Port})，MaxConnections({this.MaxConnections})，MaxTimeOutMillisecond({this.MaxTimeOutMillisecond})，SocketProtocolType({this.SocketProtocolType})，MaxTransPortBodyMB({this.MaxTransPortBodyMB})");
+        public readonly HashSet<FastSocketConnection> FastSocketConnections = new HashSet<FastSocketConnection>();
 
-        public void ConfigOptions(FastSocketBuildOption option)
+        public FastSocket(FastSocketBuildOption option, IFastSocketService fastSocketService)
         {
             this.Ip = option.Ip;
             this.Port = option.Port;
@@ -35,12 +31,11 @@ namespace FastSocket.Server
             this.MaxTransPortBodyMB = option.MaxTransPortBodyMB;
             //
             this.SocketProtocolType = EnumSocketProtocolType.tcp;
-        }
-
-        public void ConfigService(IFastSocketService fastSocketService)
-        {
             this.FastSocketService = fastSocketService;
         }
+
+        //
+        private void PrintConfigInfo() => Console.WriteLine($"FastSocket：Ip({this.Ip})，Port({this.Port})，MaxConnections({this.MaxConnections})，MaxTimeOutMillisecond({this.MaxTimeOutMillisecond})，SocketProtocolType({this.SocketProtocolType})，MaxTransPortBodyMB({this.MaxTransPortBodyMB})");
 
         private void HandleListenAsync()
         {
@@ -55,7 +50,7 @@ namespace FastSocket.Server
 
                     FastSocketConnection fastSocketConnection = new FastSocketConnection(newConnectionSocket, (int)asyncResult.AsyncState, this.socket);
                     fastSocketConnection.Start();
-                    this.FastSocketConnections.AddLast(fastSocketConnection);
+                    this.FastSocketConnections.Add(fastSocketConnection);
 
                 }, this.AutoGrowthConnectionId++);
             }
@@ -68,27 +63,28 @@ namespace FastSocket.Server
             this.socket = new Socket(iPEndPoint.AddressFamily, SocketType.Stream, (ProtocolType)((int)this.SocketProtocolType));
             this.socket.Listen(this.MaxConnections);
             this.IsListen = true;
+            this.FastSocketService.OnServiceStarted(this);
             HandleListenAsync();
         }
 
-        public void Close()
+        public void Stop()
         {
             this.IsListen = false;
             this.socket?.Close();
             this.socket = null;
-            this.FastSocketConnections = new LinkedList<FastSocketConnection>();
+            this.FastSocketConnections.Clear();
+            this.FastSocketService.OnServiceStoped(this);
         }
 
         public void CloseOneConnection(FastSocketConnection fastSocketConnection)
         {
-            FastSocketConnection connection = this.FastSocketConnections?.Find(fastSocketConnection)?.Value;
-            this.FastSocketConnections?.Remove(connection);
-
+            fastSocketConnection.ConnectionID = 1;
+            this.FastSocketConnections?.Remove(fastSocketConnection);
         }
 
         public void CloseOneConnectionByConnectionID(int connectionID)
         {
-            throw new NotImplementedException();
+            this.FastSocketConnections?.RemoveWhere(p => p.ConnectionID.Equals(connectionID));
         }
     }
 }

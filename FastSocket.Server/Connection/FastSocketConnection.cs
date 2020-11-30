@@ -7,15 +7,14 @@ namespace FastSocket.Server.Connection
 {
     public class FastSocketConnection
     {
-        public Socket ConnectionSocket { get; set; }
-        private int connectionID;
-        public int GetConnectionID() => this.connectionID;
+        public readonly Socket ConnectionSocket;
+        public readonly int ConnectionID;
         private Socket serverSocket;
 
         public FastSocketConnection(Socket newConnectionSocket, int connectionID, Socket serverSocket)
         {
             this.ConnectionSocket = newConnectionSocket;
-            this.connectionID = connectionID;
+            this.ConnectionID = connectionID;
             this.serverSocket = serverSocket;
         }
 

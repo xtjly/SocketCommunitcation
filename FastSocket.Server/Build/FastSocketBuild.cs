@@ -32,11 +32,9 @@ namespace FastSocket.Server.Build
                 throw configResult.ErrorException;
             }
 
-            IFastSocket fastSocket = new FastSocket();
             IFastSocketService fastSocketService = new FastSocketService();
             Action_FastSocketService(fastSocketService);
-            fastSocket.ConfigOptions(fastSocketBuildOption);
-            fastSocket.ConfigService(fastSocketService);
+            IFastSocket fastSocket = new FastSocket(fastSocketBuildOption, fastSocketService);
             return fastSocket;
         }
     }

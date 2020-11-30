@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\86188\\Documents\\新建文件夹\\SocketCommunitcation\\FastSocket.TestClient\\FastSocket.TestClient.csproj": {}
+    "F:\\liuyan\\vs2019project\\精进\\SocketCommunication\\FastSocket.TestClient\\FastSocket.TestClient.csproj": {}
   },
   "projects": {
-    "C:\\Users\\86188\\Documents\\新建文件夹\\SocketCommunitcation\\FastSocket.TestClient\\FastSocket.TestClient.csproj": {
+    "F:\\liuyan\\vs2019project\\精进\\SocketCommunication\\FastSocket.TestClient\\FastSocket.TestClient.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\86188\\Documents\\新建文件夹\\SocketCommunitcation\\FastSocket.TestClient\\FastSocket.TestClient.csproj",
+        "projectUniqueName": "F:\\liuyan\\vs2019project\\精进\\SocketCommunication\\FastSocket.TestClient\\FastSocket.TestClient.csproj",
         "projectName": "FastSocket.TestClient",
-        "projectPath": "C:\\Users\\86188\\Documents\\新建文件夹\\SocketCommunitcation\\FastSocket.TestClient\\FastSocket.TestClient.csproj",
-        "packagesPath": "C:\\Users\\86188\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\86188\\Documents\\新建文件夹\\SocketCommunitcation\\FastSocket.TestClient\\obj\\",
+        "projectPath": "F:\\liuyan\\vs2019project\\精进\\SocketCommunication\\FastSocket.TestClient\\FastSocket.TestClient.csproj",
+        "packagesPath": "C:\\Users\\vsofo\\.nuget\\packages\\",
+        "outputPath": "F:\\liuyan\\vs2019project\\精进\\SocketCommunication\\FastSocket.TestClient\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\86188\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\vsofo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
