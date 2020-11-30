@@ -1,10 +1,10 @@
-﻿using FastSocket.Server.Build;
-using FastSocket.Server.Comman;
-using FastSocket.Server.Options;
+﻿using FastSocket.Build;
+using FastSocket.Comman;
+using FastSocket.Options;
 using System;
 using System.IO;
 
-namespace FastSocket.Server.Factory
+namespace FastSocket.Factory
 {
     public static class SocketFactory
     {

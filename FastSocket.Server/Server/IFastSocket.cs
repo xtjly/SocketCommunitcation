@@ -1,5 +1,4 @@
-﻿using FastSocket.Server.Connection;
-using FastSocket.Server.Options;
+﻿using FastSocket.Connection;
 
 namespace FastSocket.Server
 {

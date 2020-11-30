@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "QpwQVUb+obkIfE7VCsYq3E7YfWamP0/chWEt1/4jajhQLeaPwseBqq9P1VZtfnG2N35j4vPNAnrUuutekaM3UQ==",
+  "dgSpecHash": "XHXbxPvRX4BBmRiUEALrdGrJ9hcMagAeSEffjbjzAsYCjuROL7ysShKAtHL3qk+uFK1476LX7jZm8tgz1+gesQ==",
   "success": true,
-  "projectFilePath": "F:\\liuyan\\vs2019project\\精进\\SocketCommunication\\FastSocket.Server\\FastSocket.Server.csproj",
+  "projectFilePath": "F:\\liuyan\\vs2019project\\精进\\SocketCommunication\\FastSocket.Server\\FastSocket.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\vsofo\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\vsofo\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"

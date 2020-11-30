@@ -1,11 +1,12 @@
-﻿using FastSocket.Server.Connection;
-using FastSocket.Server.Options;
+﻿using FastSocket.Connection;
+using FastSocket.Options;
+using FastSocket.Server;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 
-namespace FastSocket.Server
+namespace FastSocket
 {
     public class FastSocket : IFastSocket
     {
@@ -61,10 +62,12 @@ namespace FastSocket.Server
             this.PrintConfigInfo();
             IPEndPoint iPEndPoint = new IPEndPoint(IPAddress.Parse(this.Ip), this.Port);
             this.socket = new Socket(iPEndPoint.AddressFamily, SocketType.Stream, (ProtocolType)((int)this.SocketProtocolType));
+            this.socket.Bind(iPEndPoint);
             this.socket.Listen(this.MaxConnections);
             this.IsListen = true;
             this.FastSocketService.OnServiceStarted(this);
             HandleListenAsync();
+            while (!"exit".Equals(Console.ReadLine().Trim())) { }
         }
 
         public void Stop()

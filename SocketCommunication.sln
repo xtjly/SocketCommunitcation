@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.30709.132
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastSocket.Test", "FastSocket.Test\FastSocket.Test.csproj", "{39F7E727-0FE4-477D-BB0C-F6607FD30FAF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastSocket.Server", "FastSocket.Server\FastSocket.Server.csproj", "{DC479EBF-4FF6-41F1-887B-CC2F4EA4D7AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastSocket", "FastSocket.Server\FastSocket.csproj", "{DC479EBF-4FF6-41F1-887B-CC2F4EA4D7AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastSocket.TestClient", "FastSocket.TestClient\FastSocket.TestClient.csproj", "{C97B2C73-5E11-4567-AE3D-7CAEE2C44BF8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastSocket.TestClient", "FastSocket.TestClient\FastSocket.TestClient.csproj", "{C97B2C73-5E11-4567-AE3D-7CAEE2C44BF8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

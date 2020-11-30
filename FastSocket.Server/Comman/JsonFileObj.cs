@@ -2,7 +2,7 @@
 using System.Runtime.Serialization.Json;
 using System.Text;
 
-namespace FastSocket.Server.Comman
+namespace FastSocket.Comman
 {
     public static class JsonFileObj
     {

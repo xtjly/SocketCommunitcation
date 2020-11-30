@@ -1,0 +1,13 @@
+F:\liuyan\vs2019project\精进\SocketCommunication\FastSocket.TestClient\obj\Debug\netcoreapp3.1\FastSocket.TestClient.csprojAssemblyReference.cache
+F:\liuyan\vs2019project\精进\SocketCommunication\FastSocket.TestClient\obj\Debug\netcoreapp3.1\FastSocket.TestClient.AssemblyInfoInputs.cache
+F:\liuyan\vs2019project\精进\SocketCommunication\FastSocket.TestClient\obj\Debug\netcoreapp3.1\FastSocket.TestClient.AssemblyInfo.cs
+F:\liuyan\vs2019project\精进\SocketCommunication\FastSocket.TestClient\obj\Debug\netcoreapp3.1\FastSocket.TestClient.csproj.CoreCompileInputs.cache
+F:\liuyan\vs2019project\精进\SocketCommunication\FastSocket.TestClient\bin\Debug\netcoreapp3.1\FastSocket.TestClient.exe
+F:\liuyan\vs2019project\精进\SocketCommunication\FastSocket.TestClient\bin\Debug\netcoreapp3.1\FastSocket.TestClient.deps.json
+F:\liuyan\vs2019project\精进\SocketCommunication\FastSocket.TestClient\bin\Debug\netcoreapp3.1\FastSocket.TestClient.runtimeconfig.json
+F:\liuyan\vs2019project\精进\SocketCommunication\FastSocket.TestClient\bin\Debug\netcoreapp3.1\FastSocket.TestClient.runtimeconfig.dev.json
+F:\liuyan\vs2019project\精进\SocketCommunication\FastSocket.TestClient\bin\Debug\netcoreapp3.1\FastSocket.TestClient.dll
+F:\liuyan\vs2019project\精进\SocketCommunication\FastSocket.TestClient\bin\Debug\netcoreapp3.1\FastSocket.TestClient.pdb
+F:\liuyan\vs2019project\精进\SocketCommunication\FastSocket.TestClient\obj\Debug\netcoreapp3.1\FastSocket.TestClient.dll
+F:\liuyan\vs2019project\精进\SocketCommunication\FastSocket.TestClient\obj\Debug\netcoreapp3.1\FastSocket.TestClient.pdb
+F:\liuyan\vs2019project\精进\SocketCommunication\FastSocket.TestClient\obj\Debug\netcoreapp3.1\FastSocket.TestClient.genruntimeconfig.cache

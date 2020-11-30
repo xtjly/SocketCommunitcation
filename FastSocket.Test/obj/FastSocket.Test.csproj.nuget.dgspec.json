@@ -4,12 +4,12 @@
     "F:\\liuyan\\vs2019project\\精进\\SocketCommunication\\FastSocket.Test\\FastSocket.Test.csproj": {}
   },
   "projects": {
-    "F:\\liuyan\\vs2019project\\精进\\SocketCommunication\\FastSocket.Server\\FastSocket.Server.csproj": {
+    "F:\\liuyan\\vs2019project\\精进\\SocketCommunication\\FastSocket.Server\\FastSocket.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\liuyan\\vs2019project\\精进\\SocketCommunication\\FastSocket.Server\\FastSocket.Server.csproj",
-        "projectName": "FastSocket.Server",
-        "projectPath": "F:\\liuyan\\vs2019project\\精进\\SocketCommunication\\FastSocket.Server\\FastSocket.Server.csproj",
+        "projectUniqueName": "F:\\liuyan\\vs2019project\\精进\\SocketCommunication\\FastSocket.Server\\FastSocket.csproj",
+        "projectName": "FastSocket",
+        "projectPath": "F:\\liuyan\\vs2019project\\精进\\SocketCommunication\\FastSocket.Server\\FastSocket.csproj",
         "packagesPath": "C:\\Users\\vsofo\\.nuget\\packages\\",
         "outputPath": "F:\\liuyan\\vs2019project\\精进\\SocketCommunication\\FastSocket.Server\\obj\\",
         "projectStyle": "PackageReference",
@@ -85,8 +85,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "F:\\liuyan\\vs2019project\\精进\\SocketCommunication\\FastSocket.Server\\FastSocket.Server.csproj": {
-                "projectPath": "F:\\liuyan\\vs2019project\\精进\\SocketCommunication\\FastSocket.Server\\FastSocket.Server.csproj"
+              "F:\\liuyan\\vs2019project\\精进\\SocketCommunication\\FastSocket.Server\\FastSocket.csproj": {
+                "projectPath": "F:\\liuyan\\vs2019project\\精进\\SocketCommunication\\FastSocket.Server\\FastSocket.csproj"
               }
             }
           }

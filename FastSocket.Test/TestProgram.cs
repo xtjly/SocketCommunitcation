@@ -1,8 +1,7 @@
-﻿using FastSocket.Server;
-using FastSocket.Server.Build;
-using FastSocket.Server.Connection;
-using FastSocket.Server.Factory;
-using FastSocket.Server.Options;
+﻿using FastSocket.Build;
+using FastSocket.Factory;
+using FastSocket.Options;
+using FastSocket.Server;
 using System;
 
 namespace FastSocket.Test

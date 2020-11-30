@@ -1,17 +1,17 @@
-﻿using FastSocket.Server.Connection;
+﻿using FastSocket.Connection;
 using System;
 
 namespace FastSocket.Server
 {
     public class FastSocketService : IFastSocketService
     {
-        public Action<FastSocket, FastSocketConnection> OnConnectionConnected { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public Action<FastSocket, FastSocketConnection, byte[]> OnReceiveMsg { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public Action<FastSocket, FastSocketConnection, byte[]> OnSendMsg { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public Action<FastSocket, FastSocketConnection> OnConnectionCloseed { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public Action<FastSocket, Exception> OnServiceException { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public Action<FastSocket> OnServiceStarted { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public Action<FastSocket> OnServiceStoped { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Action<FastSocket, FastSocketConnection> OnConnectionConnected { get; set; }
+        public Action<FastSocket, FastSocketConnection, byte[]> OnReceiveMsg { get; set; }
+        public Action<FastSocket, FastSocketConnection, byte[]> OnSendMsg { get; set; }
+        public Action<FastSocket, FastSocketConnection> OnConnectionCloseed { get; set; }
+        public Action<FastSocket, Exception> OnServiceException { get; set; }
+        public Action<FastSocket> OnServiceStarted { get; set; }
+        public Action<FastSocket> OnServiceStoped { get; set; }
 
         public IFastSocketService AddOnConnectionConnected(Action<FastSocket, FastSocketConnection> action)
         {

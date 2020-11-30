@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Text;
 
-namespace FastSocket.Server.Connection
+namespace FastSocket.Connection
 {
     public class FastSocketConnection
     {

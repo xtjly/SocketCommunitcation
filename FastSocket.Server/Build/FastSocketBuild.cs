@@ -1,7 +1,8 @@
-﻿using FastSocket.Server.Options;
+﻿using FastSocket.Options;
+using FastSocket.Server;
 using System;
 
-namespace FastSocket.Server.Build
+namespace FastSocket.Build
 {
     public class FastSocketBuild : IFastSocketBuild
     {

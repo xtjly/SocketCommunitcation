@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace FastSocket.Server.Options
+namespace FastSocket.Options
 {
     public static class FastSocketBuildOptionExtention
     {

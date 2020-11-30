@@ -2,28 +2,28 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v3.1": {
-      "FastSocket.Server/1.0.0": {
+      "FastSocket/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "compile": {
-          "bin/placeholder/FastSocket.Server.dll": {}
+          "bin/placeholder/FastSocket.dll": {}
         },
         "runtime": {
-          "bin/placeholder/FastSocket.Server.dll": {}
+          "bin/placeholder/FastSocket.dll": {}
         }
       }
     }
   },
   "libraries": {
-    "FastSocket.Server/1.0.0": {
+    "FastSocket/1.0.0": {
       "type": "project",
-      "path": "../FastSocket.Server/FastSocket.Server.csproj",
-      "msbuildProject": "../FastSocket.Server/FastSocket.Server.csproj"
+      "path": "../FastSocket.Server/FastSocket.csproj",
+      "msbuildProject": "../FastSocket.Server/FastSocket.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
-      "FastSocket.Server >= 1.0.0"
+      "FastSocket >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -53,8 +53,8 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "F:\\liuyan\\vs2019project\\精进\\SocketCommunication\\FastSocket.Server\\FastSocket.Server.csproj": {
-              "projectPath": "F:\\liuyan\\vs2019project\\精进\\SocketCommunication\\FastSocket.Server\\FastSocket.Server.csproj"
+            "F:\\liuyan\\vs2019project\\精进\\SocketCommunication\\FastSocket.Server\\FastSocket.csproj": {
+              "projectPath": "F:\\liuyan\\vs2019project\\精进\\SocketCommunication\\FastSocket.Server\\FastSocket.csproj"
             }
           }
         }

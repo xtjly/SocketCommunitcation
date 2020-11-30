@@ -1,0 +1,4 @@
+F:\liuyan\vs2019project\精进\SocketCommunication\FastSocket.Server\obj\Debug\netstandard2.0\FastSocket.Service.csprojAssemblyReference.cache
+F:\liuyan\vs2019project\精进\SocketCommunication\FastSocket.Server\obj\Debug\netstandard2.0\FastSocket.Service.AssemblyInfoInputs.cache
+F:\liuyan\vs2019project\精进\SocketCommunication\FastSocket.Server\obj\Debug\netstandard2.0\FastSocket.Service.AssemblyInfo.cs
+F:\liuyan\vs2019project\精进\SocketCommunication\FastSocket.Server\obj\Debug\netstandard2.0\FastSocket.Service.csproj.CoreCompileInputs.cache

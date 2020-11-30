@@ -1,4 +1,4 @@
-﻿namespace FastSocket.Server.Options
+﻿namespace FastSocket.Options
 {
     public class FastSocketBuildOption
     {

@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FastSocket.Server\FastSocket.Server.csproj" />
+    <ProjectReference Include="..\FastSocket.Server\FastSocket.csproj" />
   </ItemGroup>
 
   <ItemGroup>
