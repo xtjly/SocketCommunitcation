@@ -24,7 +24,8 @@ namespace FastSocket.Test
             IFastSocketBuild fastSocketBuild = SocketFactory.CreateSocketBuild();
             fastSocketBuild.ConfigFastSocketService(fastSocketService =>
             {
-                fastSocketService.AddOnConnectionConnected((serverSocket, connection) =>
+                fastSocketService
+                .AddOnConnectionConnected((serverSocket, connection) =>
                 {
                     Console.WriteLine($"Socket服务，ConnectionId({connection.ConnectionID})，接入链接");
                 }).AddOnReceiveMsg((serverSocket, connection, receiveBytes) =>

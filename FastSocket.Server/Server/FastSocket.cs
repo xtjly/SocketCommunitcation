@@ -20,7 +20,7 @@ namespace FastSocket.Server
         private Socket socket;
         private bool IsListen = false;
         private int AutoGrowthConnectionId = 0;
-        public readonly HashSet<FastSocketConnection> FastSocketConnections = new HashSet<FastSocketConnection>();
+        public readonly LinkedList<FastSocketConnection> FastSocketConnections = new LinkedList<FastSocketConnection>();
 
         public FastSocket(FastSocketBuildOption option, IFastSocketService fastSocketService)
         {
@@ -47,10 +47,10 @@ namespace FastSocket.Server
                     Socket newConnectionSocket = this.socket.EndAccept(asyncResult);
                     if (this.IsListen) { HandleListenAsync(); }
                     else { return; }
-
                     FastSocketConnection fastSocketConnection = new FastSocketConnection(newConnectionSocket, (int)asyncResult.AsyncState, this.socket);
+                    this.FastSocketService.OnConnectionConnected(this, fastSocketConnection);
                     fastSocketConnection.Start();
-                    this.FastSocketConnections.Add(fastSocketConnection);
+                    this.FastSocketConnections.AddLast(fastSocketConnection);
 
                 }, this.AutoGrowthConnectionId++);
             }
@@ -78,13 +78,26 @@ namespace FastSocket.Server
 
         public void CloseOneConnection(FastSocketConnection fastSocketConnection)
         {
-            fastSocketConnection.ConnectionID = 1;
-            this.FastSocketConnections?.Remove(fastSocketConnection);
+            if (fastSocketConnection != null && fastSocketConnection?.ConnectionSocket != null)
+            {
+                this.FastSocketConnections.Remove(fastSocketConnection);
+                fastSocketConnection.ConnectionSocket.Close();
+            }
         }
 
         public void CloseOneConnectionByConnectionID(int connectionID)
         {
-            this.FastSocketConnections?.RemoveWhere(p => p.ConnectionID.Equals(connectionID));
+            FastSocketConnection theConnection = null;
+            foreach (FastSocketConnection connection in this.FastSocketConnections)
+            {
+                if (connection.ConnectionID == connectionID)
+                {
+                    theConnection = connection;
+                    break;
+                }
+            }
+            this.FastSocketConnections.Remove(theConnection);
+            theConnection.ConnectionSocket.Close();
         }
     }
 }
