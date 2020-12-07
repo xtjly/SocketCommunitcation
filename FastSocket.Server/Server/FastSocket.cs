@@ -51,7 +51,7 @@ namespace FastSocket
                 this.socket.BeginAccept(asyncResult =>
                 {
                     try
-                    {
+                    { 
                         Socket newConnectionSocket = this.socket?.EndAccept(asyncResult);
                         if (this.IsListen) { this.HandleListenAsync(); }
                         else
