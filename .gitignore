@@ -17,3 +17,4 @@
 /FastSocket.Server/bin/Debug/netstandard2.0/FastSocket.Server.deps.json
 /FastSocket.Server/obj/Debug/netstandard2.0/FastSocket.Server.csproj.CoreCompileInputs.cache
 /FastSocket.Server/obj/Debug/netstandard2.0/FastSocket.Server.csproj.FileListAbsolute.txt
+*.nupkg

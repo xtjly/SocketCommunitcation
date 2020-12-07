@@ -2,6 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>刘颜</Authors>
+    <Company>刘颜</Company>
+    <Description>Socket通信，服务端</Description>
+    <PackageProjectUrl>https://github.com/520xchly/SocketCommunitcation</PackageProjectUrl>
+    <RepositoryUrl></RepositoryUrl>
+    <PackageId>FastSocket</PackageId>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
 </Project>
