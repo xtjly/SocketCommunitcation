@@ -2,6 +2,8 @@
 using FastSocket.Options;
 using FastSocket.Server;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -23,6 +25,7 @@ namespace FastSocket
         private Socket socket;
         private bool IsListen = false;
         private int AutoGrowthConnectionId = 0;
+        private readonly List<FastSocketConnection> connections;
 
         public FastSocket(FastSocketBuildOption option, IFastSocketService fastSocketService)
         {
@@ -35,6 +38,7 @@ namespace FastSocket
             this.Encoding = Encoding.UTF8;
             this.SocketProtocolType = EnumSocketProtocolType.tcp;
             this.FastSocketService = fastSocketService;
+            connections = new List<FastSocketConnection>();
         }
 
         //
@@ -42,7 +46,6 @@ namespace FastSocket
 
         private void HandleListenAsync()
         {
-            //测试MaxConnections是否生效
             if (this.IsListen)
             {
                 this.socket.BeginAccept(asyncResult =>
@@ -56,8 +59,18 @@ namespace FastSocket
                             newConnectionSocket.Close();
                             return;
                         }
-                        FastSocketConnection fastSocketConnection = new FastSocketConnection(newConnectionSocket, (int)asyncResult.AsyncState, this);
-                        fastSocketConnection.Start();
+                        if (this.connections.Count(p => p.Enable) >= this.MaxConnections)
+                        {
+                            newConnectionSocket.Blocking = true;
+                            this.connections.RemoveAll(p => p.Enable == false);
+                            return;
+                        }
+                        else
+                        {
+                            FastSocketConnection fastSocketConnection = new FastSocketConnection(newConnectionSocket, (int)asyncResult.AsyncState, this);
+                            fastSocketConnection.Start();
+                            this.connections.Add(fastSocketConnection);
+                        }
                     }
                     catch (Exception ex)
                     {

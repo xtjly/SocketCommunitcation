@@ -12,7 +12,7 @@ namespace FastSocket.Connection
         private readonly FastSocket serverSocket;
         private readonly Encoding Encoding;
         private readonly IFastSocketService FastSocketService;
-        private volatile bool Enable;
+        internal volatile bool Enable;
 
         public FastSocketConnection(Socket newConnectionSocket, int connectionID, FastSocket serverSocket)
         {
@@ -40,7 +40,7 @@ namespace FastSocket.Connection
             timer.Enabled = true;
             timer.Elapsed += (o, a) =>
             {
-                Console.WriteLine(this.ConnectionID + "连接中");
+                //Console.WriteLine(this.ConnectionID + "连接中");
                 bool connected = true;
                 try
                 {
@@ -116,52 +116,6 @@ namespace FastSocket.Connection
         {
             this.ConnectionSocket.Close();
         }
-
-        //private void OnConnectionClose(object state)
-        //{
-        //    while (true)
-        //    {
-        //        try
-        //        {
-        //            if (this.FastSocketConnections.Count > 0 && this.IsListen)
-        //            {
-        //                for (int i = this.FastSocketConnections.Count - 1; i >= 0; i--)
-        //                {
-        //                    if (this.IsListen)
-        //                    {
-        //                        if (this.FastSocketConnections[i].IsEnable)
-        //                        {
-        //                            if (!this.FastSocketConnections[i].IsConnected())
-        //                            {
-        //                                this.FastSocketConnections[i].Close();
-        //                                //this.FastSocketConnections[i].CloseConnectionSocketWhenNoEnable();
-        //                                //FastSocketConnection theConnection = this.FastSocketConnections[i];
-        //                                //this.FastSocketConnections.RemoveAt(i--);
-        //                                //this.FastSocketService.OnConnectionCloseed(this, theConnection);
-        //                                continue;
-        //                            }
-        //                        }
-        //                        else
-        //                        {
-        //                            FastSocketConnection theConnection = this.FastSocketConnections[i];
-        //                            theConnection.CloseConnectionSocketWhenNoEnable();
-        //                            this.FastSocketService.OnConnectionCloseed(this, theConnection);
-        //                            continue;
-        //                        }
-        //                    }
-        //                    else
-        //                    {
-        //                        break;
-        //                    }
-        //                }
-        //            }
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            this.FastSocketService.OnServiceException(this, ex);
-        //        }
-        //    }
-        //}
 
         private bool Poll(int vs, SelectMode mode)
         {
