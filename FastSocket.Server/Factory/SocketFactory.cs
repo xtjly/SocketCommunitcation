@@ -18,8 +18,8 @@ namespace FastSocket.Factory
                 {
                     Ip = "127.0.0.1",
                     Port = 6188,
-                    MaxConnections = 10,
-                    MaxTimeOutMillisecond = 5000,
+                    MaxConnections = 2,
+                    MaxTimeOutMillisecond = 3000,
                     MaxTransPortBodyMB = 2
                 });
             }

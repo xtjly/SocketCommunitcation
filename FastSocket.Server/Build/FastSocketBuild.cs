@@ -17,7 +17,7 @@ namespace FastSocket.Build
         }
 
         FastSocketBuildOption fastSocketBuildOption = null;
-        Action<IFastSocketService> Action_FastSocketService = null;
+        Action<IFastSocketService> Action_FastSocketService = new Action<IFastSocketService>(p => { });
 
         public IFastSocket Build()
         {

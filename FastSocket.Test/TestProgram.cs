@@ -34,7 +34,7 @@ namespace FastSocket.Test
                 }).AddOnSendMsg((serverSocket, connection, sendBytes) =>
                 {
                     Console.WriteLine($"Socket服务，ConnectionId({connection?.ConnectionID})，发送消息至客户端：({serverSocket.Encoding.GetString(sendBytes)})");
-                }).AddOnConnectionCloseed((serverSocket, connection) =>
+                }).AddOnConnectionClosed((serverSocket, connection) =>
                 {
                     Console.WriteLine($"Socket服务，ConnectionId({connection?.ConnectionID})，关闭链接");
                 }).AddOnServiceException((serverSocket, exception) =>

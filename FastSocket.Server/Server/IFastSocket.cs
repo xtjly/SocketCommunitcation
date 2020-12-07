@@ -7,6 +7,5 @@ namespace FastSocket.Server
         void Run();
         void Stop();
         void CloseOneConnection(FastSocketConnection fastSocketConnection);
-        void CloseOneConnectionByConnectionID(int connectionID);
     }
 }

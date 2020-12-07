@@ -5,13 +5,13 @@ namespace FastSocket.Server
 {
     public class FastSocketService : IFastSocketService
     {
-        public Action<FastSocket, FastSocketConnection> OnConnectionConnected { get; set; }
-        public Action<FastSocket, FastSocketConnection, byte[]> OnReceiveMsg { get; set; }
-        public Action<FastSocket, FastSocketConnection, byte[]> OnSendMsg { get; set; }
-        public Action<FastSocket, FastSocketConnection> OnConnectionCloseed { get; set; }
-        public Action<FastSocket, Exception> OnServiceException { get; set; }
-        public Action<FastSocket> OnServiceStarted { get; set; }
-        public Action<FastSocket> OnServiceStoped { get; set; }
+        public Action<FastSocket, FastSocketConnection> OnConnectionConnected { get; set; } = new Action<FastSocket, FastSocketConnection>((p1, p2) => { });
+        public Action<FastSocket, FastSocketConnection, byte[]> OnReceiveMsg { get; set; } = new Action<FastSocket, FastSocketConnection, byte[]>((p1, p2, p3) => { });
+        public Action<FastSocket, FastSocketConnection, byte[]> OnSendMsg { get; set; } = new Action<FastSocket, FastSocketConnection, byte[]>((p1, p2, p3) => { });
+        public Action<FastSocket, FastSocketConnection> OnConnectionClosed { get; set; } = new Action<FastSocket, FastSocketConnection>((p1, p2) => { });
+        public Action<FastSocket, Exception> OnServiceException { get; set; } = new Action<FastSocket, Exception>((p1, p2) => { });
+        public Action<FastSocket> OnServiceStarted { get; set; } = new Action<FastSocket>(p => { });
+        public Action<FastSocket> OnServiceStoped { get; set; } = new Action<FastSocket>(p => { });
 
         public IFastSocketService AddOnConnectionConnected(Action<FastSocket, FastSocketConnection> action)
         {
@@ -31,9 +31,9 @@ namespace FastSocket.Server
             return this;
         }
 
-        public IFastSocketService AddOnConnectionCloseed(Action<FastSocket, FastSocketConnection> action)
+        public IFastSocketService AddOnConnectionClosed(Action<FastSocket, FastSocketConnection> action)
         {
-            this.OnConnectionCloseed = action;
+            this.OnConnectionClosed = action;
             return this;
         }
 

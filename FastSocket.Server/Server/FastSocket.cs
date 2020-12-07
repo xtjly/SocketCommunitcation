@@ -2,12 +2,10 @@
 using FastSocket.Options;
 using FastSocket.Server;
 using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using System.Timers;
 
 namespace FastSocket
 {
@@ -25,7 +23,6 @@ namespace FastSocket
         private Socket socket;
         private bool IsListen = false;
         private int AutoGrowthConnectionId = 0;
-        public readonly List<FastSocketConnection> FastSocketConnections = new List<FastSocketConnection>();
 
         public FastSocket(FastSocketBuildOption option, IFastSocketService fastSocketService)
         {
@@ -54,11 +51,13 @@ namespace FastSocket
                     {
                         Socket newConnectionSocket = this.socket?.EndAccept(asyncResult);
                         if (this.IsListen) { this.HandleListenAsync(); }
-                        else { return; }
+                        else
+                        {
+                            newConnectionSocket.Close();
+                            return;
+                        }
                         FastSocketConnection fastSocketConnection = new FastSocketConnection(newConnectionSocket, (int)asyncResult.AsyncState, this);
-                        this.FastSocketService.OnConnectionConnected(this, fastSocketConnection);
                         fastSocketConnection.Start();
-                        this.FastSocketConnections.Add(fastSocketConnection);
                     }
                     catch (Exception ex)
                     {
@@ -81,7 +80,6 @@ namespace FastSocket
                 this.socket.Listen(this.MaxConnections);
                 this.IsListen = true;
                 this.FastSocketService.OnServiceStarted(this);
-                HandleConnectionClosedAsync();
                 HandleListenAsync();
                 while (!"exit".Equals(Console.ReadLine().Trim())) { }
                 this.Stop();
@@ -93,63 +91,12 @@ namespace FastSocket
             }
         }
 
-        private void HandleConnectionClosedAsync()
-        {
-            ThreadPool.QueueUserWorkItem(OnConnectionClose);
-        }
-
-        private void OnConnectionClose(object state)
-        {
-            while (true)
-            {
-                try
-                {
-                    if (this.FastSocketConnections.Count > 0 && this.IsListen)
-                    {
-                        for (int i = this.FastSocketConnections.Count - 1; i >= 0; i--)
-                        {
-                            if (this.IsListen)
-                            {
-                                if (this.FastSocketConnections[i].IsEnable)
-                                {
-                                    if (!this.FastSocketConnections[i].IsConnected())
-                                    {
-                                        this.FastSocketConnections[i].Close();
-                                        this.FastSocketConnections[i].CloseConnectionSocketWhenNoEnable();
-                                        FastSocketConnection theConnection = this.FastSocketConnections[i];
-                                        this.FastSocketConnections.RemoveAt(i--);
-                                        this.FastSocketService.OnConnectionCloseed(this, theConnection);
-                                        continue;
-                                    }
-                                }
-                                else
-                                {
-                                    this.FastSocketConnections[i].CloseConnectionSocketWhenNoEnable();
-                                    FastSocketConnection theConnection = this.FastSocketConnections[i];
-                                    this.FastSocketConnections.RemoveAt(i--);
-                                    this.FastSocketService.OnConnectionCloseed(this, theConnection);
-                                    continue;
-                                }
-                            }
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    this.FastSocketService.OnServiceException(this, ex);
-                }
-                Thread.Sleep(100);
-            }
-        }
-
         public void Stop()
         {
             try
             {
-
                 this.IsListen = false;
                 this.socket?.Close();
-                this.FastSocketConnections.Clear();
                 this.FastSocketService.OnServiceStoped(this);
             }
             catch (Exception ex)
@@ -164,20 +111,6 @@ namespace FastSocket
             {
                 fastSocketConnection.Close();
             }
-        }
-
-        public void CloseOneConnectionByConnectionID(int connectionID)
-        {
-            FastSocketConnection theConnection = null;
-            foreach (FastSocketConnection connection in this.FastSocketConnections)
-            {
-                if (connection.ConnectionID == connectionID)
-                {
-                    theConnection = connection;
-                    break;
-                }
-            }
-            theConnection.Close();
         }
     }
 }
