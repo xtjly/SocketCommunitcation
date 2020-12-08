@@ -4,11 +4,12 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>刘颜</Authors>
     <Company>刘颜</Company>
-    <Description>Socket通信，服务端</Description>
+    <Description>Socket通信，服务端，客户端</Description>
     <PackageProjectUrl>https://github.com/520xchly/SocketCommunitcation</PackageProjectUrl>
     <RepositoryUrl></RepositoryUrl>
-    <PackageId>FastSocket</PackageId>
+    <PackageId>FastSocket.LiuYan</PackageId>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Version>1.0.0</Version>
   </PropertyGroup>
 
 </Project>

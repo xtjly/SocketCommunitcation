@@ -1,9 +1,0 @@
-F:\liuyan\vs2019project\精进\SocketCommunication\FastSocket.Server\obj\Debug\netstandard2.0\FastSocket.AssemblyInfoInputs.cache
-F:\liuyan\vs2019project\精进\SocketCommunication\FastSocket.Server\obj\Debug\netstandard2.0\FastSocket.AssemblyInfo.cs
-F:\liuyan\vs2019project\精进\SocketCommunication\FastSocket.Server\obj\Debug\netstandard2.0\FastSocket.csproj.CoreCompileInputs.cache
-F:\liuyan\vs2019project\精进\SocketCommunication\FastSocket.Server\bin\Debug\netstandard2.0\FastSocket.deps.json
-F:\liuyan\vs2019project\精进\SocketCommunication\FastSocket.Server\bin\Debug\netstandard2.0\FastSocket.dll
-F:\liuyan\vs2019project\精进\SocketCommunication\FastSocket.Server\bin\Debug\netstandard2.0\FastSocket.pdb
-F:\liuyan\vs2019project\精进\SocketCommunication\FastSocket.Server\obj\Debug\netstandard2.0\FastSocket.csprojAssemblyReference.cache
-F:\liuyan\vs2019project\精进\SocketCommunication\FastSocket.Server\obj\Debug\netstandard2.0\FastSocket.dll
-F:\liuyan\vs2019project\精进\SocketCommunication\FastSocket.Server\obj\Debug\netstandard2.0\FastSocket.pdb
