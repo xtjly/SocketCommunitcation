@@ -34,9 +34,9 @@ namespace FastSocket.Test
                 }).AddOnSendMsg((serverSocket, connection, sendBytes) =>
                 {
                     Console.WriteLine($"Socket服务，ConnectionId({connection?.ConnectionID})，发送消息至客户端：({serverSocket.Encoding.GetString(sendBytes)})");
-                }).AddOnConnectionClosed((serverSocket, connection) =>
+                }).AddOnConnectionClosed((serverSocket, connectionId) =>
                 {
-                    Console.WriteLine($"Socket服务，ConnectionId({connection?.ConnectionID})，关闭链接");
+                    Console.WriteLine($"Socket服务，ConnectionId({connectionId})，已关闭链接");
                 }).AddOnServiceException((serverSocket, exception) =>
                 {
                     Console.WriteLine($"Socket服务异常，ExceptionMsg({exception.GetType().Name}:{exception.Message})，ExceptionStackTrace({exception.StackTrace})");
@@ -52,7 +52,6 @@ namespace FastSocket.Test
             fastSocket.Run();                                                   //Socket服务启动
             //fastSocket.Stop();                                               //Socket服务关闭
             //fastSocket.CloseOneConnection(new FastSocketConnection());        //关闭某个客户端连接
-            //fastSocket.CloseOneConnectionByConnectionID((int)connectionID);   //根据连接ID关闭某个客户端连接
         }
     }
 }

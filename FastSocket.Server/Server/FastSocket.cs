@@ -24,8 +24,9 @@ namespace FastSocket
         private readonly EnumSocketProtocolType SocketProtocolType = EnumSocketProtocolType.tcp;
         private Socket socket;
         private bool IsListen = false;
-        private int AutoGrowthConnectionId = 0;
-        private readonly List<FastSocketConnection> connections;
+        private volatile int AutoGrowthConnectionId = 0;
+        private readonly LinkedList<FastSocketConnection> connections;
+        private bool ClearTag = true;
 
         public FastSocket(FastSocketBuildOption option, IFastSocketService fastSocketService)
         {
@@ -38,7 +39,7 @@ namespace FastSocket
             this.Encoding = Encoding.UTF8;
             this.SocketProtocolType = EnumSocketProtocolType.tcp;
             this.FastSocketService = fastSocketService;
-            connections = new List<FastSocketConnection>();
+            connections = new LinkedList<FastSocketConnection>();
         }
 
         //
@@ -61,15 +62,14 @@ namespace FastSocket
                         }
                         if (this.connections.Count(p => p.Enable) >= this.MaxConnections)
                         {
-                            newConnectionSocket.Blocking = true;
-                            this.connections.RemoveAll(p => p.Enable == false);
+                            newConnectionSocket.Close();
                             return;
                         }
                         else
                         {
                             FastSocketConnection fastSocketConnection = new FastSocketConnection(newConnectionSocket, (int)asyncResult.AsyncState, this);
                             fastSocketConnection.Start();
-                            this.connections.Add(fastSocketConnection);
+                            this.connections.AddLast(fastSocketConnection);
                         }
                     }
                     catch (Exception ex)
@@ -94,6 +94,7 @@ namespace FastSocket
                 this.IsListen = true;
                 this.FastSocketService.OnServiceStarted(this);
                 HandleListenAsync();
+                HandleObjectClear();
                 while (!"exit".Equals(Console.ReadLine().Trim())) { }
                 this.Stop();
                 Thread.Sleep(3000);
@@ -102,6 +103,40 @@ namespace FastSocket
             {
                 this.FastSocketService.OnServiceException(this, ex);
             }
+        }
+
+        private void HandleObjectClear()
+        {
+            var timer = new System.Timers.Timer();
+            timer.Interval = 5000;
+            timer.Enabled = true;
+            timer.Elapsed += (o, a) =>
+            {
+                if (GetClearTag())
+                {
+                    SetClearTag(false);
+                    foreach (var item in connections)
+                    {
+                        if (item.Enable == false)
+                        {
+                            connections.Remove(item);
+                            item.Close();
+                        }
+                    }
+                    SetClearTag(true);
+                }
+            };
+            timer.Start();
+        }
+
+        private bool GetClearTag()
+        {
+            return this.ClearTag;
+        }
+
+        private void SetClearTag(bool tag)
+        {
+            this.ClearTag = tag;
         }
 
         public void Stop()

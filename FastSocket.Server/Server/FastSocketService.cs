@@ -8,7 +8,7 @@ namespace FastSocket.Server
         public Action<FastSocket, FastSocketConnection> OnConnectionConnected { get; set; } = new Action<FastSocket, FastSocketConnection>((p1, p2) => { });
         public Action<FastSocket, FastSocketConnection, byte[]> OnReceiveMsg { get; set; } = new Action<FastSocket, FastSocketConnection, byte[]>((p1, p2, p3) => { });
         public Action<FastSocket, FastSocketConnection, byte[]> OnSendMsg { get; set; } = new Action<FastSocket, FastSocketConnection, byte[]>((p1, p2, p3) => { });
-        public Action<FastSocket, FastSocketConnection> OnConnectionClosed { get; set; } = new Action<FastSocket, FastSocketConnection>((p1, p2) => { });
+        public Action<FastSocket, int> OnConnectionClosed { get; set; } = new Action<FastSocket, int>((p1, p2) => { });
         public Action<FastSocket, Exception> OnServiceException { get; set; } = new Action<FastSocket, Exception>((p1, p2) => { });
         public Action<FastSocket> OnServiceStarted { get; set; } = new Action<FastSocket>(p => { });
         public Action<FastSocket> OnServiceStoped { get; set; } = new Action<FastSocket>(p => { });
@@ -31,7 +31,7 @@ namespace FastSocket.Server
             return this;
         }
 
-        public IFastSocketService AddOnConnectionClosed(Action<FastSocket, FastSocketConnection> action)
+        public IFastSocketService AddOnConnectionClosed(Action<FastSocket, int> action)
         {
             this.OnConnectionClosed = action;
             return this;

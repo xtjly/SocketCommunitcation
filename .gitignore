@@ -22,3 +22,7 @@
 *.cache
 /FastSocket.Test/obj/
 /FastSocket.Server/obj/
+/FastSocket.Test/Properties/PublishProfiles
+/FastSocket.TestClient/obj/Release/netcoreapp3.1
+/FastSocket.Test/bin/Release/netcoreapp3.1
+/FastSocket.Server/bin/Release/netstandard2.0

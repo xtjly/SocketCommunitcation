@@ -40,7 +40,7 @@ namespace FastSocket.Connection
             timer.Enabled = true;
             timer.Elapsed += (o, a) =>
             {
-                //Console.WriteLine(this.ConnectionID + "连接中");
+                Console.WriteLine(this.ConnectionID + "连接中");
                 bool connected = true;
                 try
                 {
@@ -59,7 +59,7 @@ namespace FastSocket.Connection
                     if (this.Enable)
                     {
                         this.Enable = false;
-                        this.FastSocketService.OnConnectionClosed(this.serverSocket, this);
+                        this.FastSocketService.OnConnectionClosed(this.serverSocket, this.ConnectionID);
                     }
                 }
             };
