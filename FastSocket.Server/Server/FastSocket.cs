@@ -2,6 +2,7 @@
 using FastSocket.Options;
 using FastSocket.Server;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -25,8 +26,7 @@ namespace FastSocket
         private Socket socket;
         private bool IsListen = false;
         private volatile int AutoGrowthConnectionId = 0;
-        private readonly LinkedList<FastSocketConnection> connections;
-        private bool ClearTag = true;
+        internal readonly LinkedList<FastSocketConnection> Connections;
 
         public FastSocket(FastSocketBuildOption option, IFastSocketService fastSocketService)
         {
@@ -39,7 +39,7 @@ namespace FastSocket
             this.Encoding = Encoding.UTF8;
             this.SocketProtocolType = EnumSocketProtocolType.tcp;
             this.FastSocketService = fastSocketService;
-            connections = new LinkedList<FastSocketConnection>();
+            Connections = new LinkedList<FastSocketConnection>();
         }
 
         //
@@ -60,7 +60,7 @@ namespace FastSocket
                             newConnectionSocket.Close();
                             return;
                         }
-                        if (this.connections.Count(p => p.Enable) >= this.MaxConnections)
+                        if (this.Connections.Count(p => p.Enable) >= this.MaxConnections)
                         {
                             newConnectionSocket.Close();
                             return;
@@ -69,7 +69,6 @@ namespace FastSocket
                         {
                             FastSocketConnection fastSocketConnection = new FastSocketConnection(newConnectionSocket, (int)asyncResult.AsyncState, this);
                             fastSocketConnection.Start();
-                            this.connections.AddLast(fastSocketConnection);
                         }
                     }
                     catch (Exception ex)
@@ -94,7 +93,6 @@ namespace FastSocket
                 this.IsListen = true;
                 this.FastSocketService.OnServiceStarted(this);
                 HandleListenAsync();
-                HandleObjectClear();
                 while (!"exit".Equals(Console.ReadLine().Trim())) { }
                 this.Stop();
                 Thread.Sleep(3000);
@@ -105,46 +103,13 @@ namespace FastSocket
             }
         }
 
-        private void HandleObjectClear()
-        {
-            var timer = new System.Timers.Timer();
-            timer.Interval = 5000;
-            timer.Enabled = true;
-            timer.Elapsed += (o, a) =>
-            {
-                if (GetClearTag())
-                {
-                    SetClearTag(false);
-                    foreach (var item in connections)
-                    {
-                        if (item.Enable == false)
-                        {
-                            connections.Remove(item);
-                            item.Close();
-                        }
-                    }
-                    SetClearTag(true);
-                }
-            };
-            timer.Start();
-        }
-
-        private bool GetClearTag()
-        {
-            return this.ClearTag;
-        }
-
-        private void SetClearTag(bool tag)
-        {
-            this.ClearTag = tag;
-        }
-
         public void Stop()
         {
             try
             {
                 this.IsListen = false;
                 this.socket?.Close();
+                this.socket?.Dispose();
                 this.FastSocketService.OnServiceStoped(this);
             }
             catch (Exception ex)

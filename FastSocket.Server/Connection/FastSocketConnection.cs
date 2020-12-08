@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FastSocket.Connection
 {
-    public class FastSocketConnection
+    public class FastSocketConnection : IDisposable
     {
         private readonly Socket ConnectionSocket;
         public readonly int ConnectionID;
@@ -28,6 +28,7 @@ namespace FastSocket.Connection
 
         internal void Start()
         {
+            this.serverSocket.Connections.AddLast(this);
             this.FastSocketService.OnConnectionConnected(this.serverSocket, this);
             HandleReceiveMsg();
             HandleConnectionClose();
@@ -44,7 +45,7 @@ namespace FastSocket.Connection
                 bool connected = true;
                 try
                 {
-                    if (!IsConnected()) connected = false;
+                    if (this.Enable && !IsConnected()) connected = false;
                 }
                 catch (Exception ex)
                 {
@@ -59,7 +60,9 @@ namespace FastSocket.Connection
                     if (this.Enable)
                     {
                         this.Enable = false;
+                        this.serverSocket.Connections.Remove(this);
                         this.FastSocketService.OnConnectionClosed(this.serverSocket, this.ConnectionID);
+                        this.Dispose();
                     }
                 }
             };
@@ -73,10 +76,11 @@ namespace FastSocket.Connection
             {
                 try
                 {
-                    int length = this.ConnectionSocket.EndReceive(asyncResult);
-                    this.HandleReceiveMsg();
+                    int length = this.ConnectionSocket?.EndReceive(asyncResult) ?? 0;
+
                     if (length > 0)
                     {
+                        this.HandleReceiveMsg();
                         byte[] data = new byte[length];
                         Array.Copy(buffer, 0, data, 0, length);
                         this.FastSocketService.OnReceiveMsg(this.serverSocket, this, data);
@@ -119,7 +123,7 @@ namespace FastSocket.Connection
 
         private bool Poll(int vs, SelectMode mode)
         {
-            if (!this.ConnectionSocket.Poll(vs, mode))
+            if (!(this?.ConnectionSocket?.Poll(vs, mode) ?? true))
             {
                 return true;
             }
@@ -128,7 +132,13 @@ namespace FastSocket.Connection
 
         private bool IsConnected()
         {
-            return Poll(this.serverSocket.MaxTimeOutMillisecond * 1000, SelectMode.SelectRead);
+            if (this == null || !this.Enable) return false;
+            return Poll(this?.serverSocket.MaxTimeOutMillisecond * 1000 ?? 2000 * 1000, SelectMode.SelectRead);
+        }
+
+        public void Dispose()
+        {
+            this.Close();
         }
     }
 }
