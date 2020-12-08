@@ -69,3 +69,8 @@ fastSocket.Run();
 客户端  
 待完善！  
   
+  
+  
+# 版本记录
+v1.0.0：Socket服务端固定只支持tcp协议，内容编码固定采用UTF-8编码，客户端连接与通信皆是异步处理，所有事件监听处理全部抽象到 IFastSocketService 中，更多...  
+  
