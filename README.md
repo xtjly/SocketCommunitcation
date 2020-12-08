@@ -44,9 +44,9 @@ Socket服务端启动参数有两种配置方式，一是通过在项目中添�
         }).AddOnSendMsg((serverSocket, connection, sendBytes) => //向客户端发出信息监听事件
         {
             Console.WriteLine($"Socket服务，ConnectionId({connection?.ConnectionID})，发送消息至客户端：({serverSocket.Encoding.GetString(sendBytes)})");
-        }).AddOnConnectionClosed((serverSocket, connection) => //有客户端已关闭监听事件
+        }).AddOnConnectionClosed((serverSocket, connectionId) => //有客户端已关闭监听事件
         {
-            Console.WriteLine($"Socket服务，ConnectionId({connection?.ConnectionID})，关闭链接");
+            Console.WriteLine($"Socket服务，ConnectionId({connectionId})，关闭链接");
         }).AddOnServiceException((serverSocket, exception) => //Socket服务异常监听事件
         {
             Console.WriteLine($"Socket服务异常，ExceptionMsg({exception.GetType().Name}:{exception.Message})，ExceptionStackTrace({exception.StackTrace})");
@@ -72,5 +72,5 @@ fastSocket.Run();
   
   
 # 版本记录
-v1.0.0：Socket服务端固定只支持tcp协议，内容编码固定采用UTF-8编码，客户端连接与通信皆是异步处理，所有事件监听处理全部抽象到 IFastSocketService 中，更多...  
-  
+v1.0.0：Socket服务端固定只支持tcp协议，内容编码固定采用UTF-8编码，客户端连接与通信皆是异步处理，所有事件监听处理全部抽象到 IFastSocketService 中，更多...    
+v1.1.0：优化部分内存泄漏问题，压测1万并发，还剩余一些内存泄漏问题，之后优化。  
